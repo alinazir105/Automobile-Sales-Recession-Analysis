@@ -109,31 +109,54 @@ def update_output_container(selected_statistics, input_year):
         R_chart4 = dcc.Graph(figure=px.bar(unemp_data, x='unemployment_rate', y='Automobile_Sales', color='Vehicle_Type',
                           title='Unemployment Rate vs. Sales', template='plotly_white'))
 
-        return html.Div(
-            children=[R_chart1, R_chart2, R_chart3, R_chart4],
-            style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '20px'}
-        )
+        # PRO FEATURE: Calculate Recession KPIs
+        total_rec_sales = recession_data['Automobile_Sales'].sum()
+        avg_rec_sales = recession_data['Automobile_Sales'].mean()
+
+        return html.Div([
+            # KPI Row
+            html.Div([
+                html.Div([
+                    html.H4("Total Recession Sales"),
+                    html.P(f"{total_rec_sales:,.0f}", style={'fontSize': 24, 'color': '#e74c3c', 'fontWeight': 'bold'})
+                ], style={'padding': '10px', 'border': '1px solid #ddd', 'borderRadius': '5px', 'width': '30%', 'textAlign': 'center'}),
+                html.Div([
+                    html.H4("Avg Sales per Month"),
+                    html.P(f"{avg_rec_sales:,.2f}", style={'fontSize': 24, 'color': '#e74c3c', 'fontWeight': 'bold'})
+                ], style={'padding': '10px', 'border': '1px solid #ddd', 'borderRadius': '5px', 'width': '30%', 'textAlign': 'center'}),
+            ], style={'display': 'flex', 'justifyContent': 'space-around', 'marginBottom': '20px'}),
+
+            # Charts Grid
+            html.Div(children=[R_chart1, R_chart2, R_chart3, R_chart4],
+                     style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '20px'})
+        ])
 
     # --- YEARLY REPORT ---
     elif (selected_statistics == 'Yearly Statistics'):
-        # Check if a valid year is selected before running calculations
         if input_year == 'Select Year' or input_year is None:
             return html.H2("Please select a year from the dropdown to view the report.", 
                            style={'textAlign':'center', 'color':'#7f8c8d', 'margin-top': '40px'})
         
-        yearly_data = data[data['Year'] == int(input_year)]
+        # 1. Use .copy() to avoid the 'SettingWithCopy' warning you saw earlier
+        yearly_data = data[data['Year'] == int(input_year)].copy()
         
-        # Plot 1: Overall Trend (uses 'data' not 'yearly_data')
+        # 2. PRO MOVE: Force months to stay in Calendar Order (Jan, Feb, Mar...)
+        month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        yearly_data['Month'] = pd.Categorical(yearly_data['Month'], categories=month_order, ordered=True)
+        
+        # 3. Add observed=False to avoid the 'FutureWarning' in your console
+        mas = yearly_data.groupby('Month', observed=False)['Automobile_Sales'].sum().reset_index()
+        
+        # Plot 1: Overall Trend
         yas = data.groupby('Year')['Automobile_Sales'].mean().reset_index()
         Y_chart1 = dcc.Graph(figure=px.line(yas, x='Year', y='Automobile_Sales', 
                                            title='Overall Yearly Sales Trend (1980-2023)', template='plotly_white'))
             
-        # Plot 2: Monthly Sales
-        mas = yearly_data.groupby('Month')['Automobile_Sales'].sum().reset_index()
+        # Plot 2: Monthly Sales (Now sorted Jan -> Dec)
         Y_chart2 = dcc.Graph(figure=px.line(mas, x='Month', y='Automobile_Sales',
-                                           title=f'Monthly Sales in {input_year}', template='plotly_white'))
+                                           title=f'Monthly Sales Trend in {input_year}', template='plotly_white'))
 
-        # Plot 3: Bar chart for Avg Sales per Vehicle Type
+        # Plot 3: Avg Sales per Vehicle Type
         avr_vdata = yearly_data.groupby('Vehicle_Type')['Automobile_Sales'].mean().reset_index()
         Y_chart3 = dcc.Graph(figure=px.bar(avr_vdata, x='Vehicle_Type', y='Automobile_Sales',
                                           title=f'Avg Vehicles Sold by Type in {input_year}', template='plotly_white'))
@@ -143,10 +166,27 @@ def update_output_container(selected_statistics, input_year):
         Y_chart4 = dcc.Graph(figure=px.pie(exp_data, values='Advertising_Expenditure', names='Vehicle_Type',
                                           title=f'Ad Spend per Vehicle Type in {input_year}', template='plotly_white'))
 
-        return html.Div(
-            children=[Y_chart1, Y_chart2, Y_chart3, Y_chart4],
-            style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '20px'}
-        )
+        # PRO FEATURE: Calculate Yearly KPIs
+        yearly_total = yearly_data['Automobile_Sales'].sum()
+        best_month = mas.loc[mas['Automobile_Sales'].idxmax(), 'Month']
+
+        return html.Div([
+            # KPI Row
+            html.Div([
+                html.Div([
+                    html.H4(f"Total Sales in {input_year}"),
+                    html.P(f"{yearly_total:,.0f}", style={'fontSize': 24, 'color': '#27ae60', 'fontWeight': 'bold'})
+                ], style={'padding': '10px', 'border': '1px solid #ddd', 'borderRadius': '5px', 'width': '30%', 'textAlign': 'center'}),
+                html.Div([
+                    html.H4("Peak Performance Month"),
+                    html.P(f"{best_month}", style={'fontSize': 24, 'color': '#27ae60', 'fontWeight': 'bold'})
+                ], style={'padding': '10px', 'border': '1px solid #ddd', 'borderRadius': '5px', 'width': '30%', 'textAlign': 'center'}),
+            ], style={'display': 'flex', 'justifyContent': 'space-around', 'marginBottom': '20px'}),
+
+            # Charts Grid
+            html.Div(children=[Y_chart1, Y_chart2, Y_chart3, Y_chart4],
+                     style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '20px'})
+        ])
     
     return None
 # Run the Dash app
