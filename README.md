@@ -1,8 +1,8 @@
-# 🚗 Automobile Sales Recession Analysis
+# Automobile Sales Recession Analysis
 
 A comprehensive data analysis project examining the impact of economic recessions on automobile sales across different vehicle categories from 1980-2023.
 
-## 📊 Project Overview
+## Project Overview
 
 This project analyzes historical automobile sales data to understand how economic recessions affect consumer purchasing behavior in the automotive industry. The analysis includes interactive visualizations, statistical insights, and a web-based dashboard for exploring trends.
 
@@ -12,7 +12,7 @@ This project analyzes historical automobile sales data to understand how economi
 - How do advertising spend and pricing strategies influence sales under different economic conditions?
 - What macroeconomic indicators (GDP, unemployment, consumer confidence) most strongly relate to sales performance?
 
-## 🎯 Key Findings
+## Key Findings
 
 ### Recession Impact
 - **Sales drop by ~50%** during recession periods compared to normal times
@@ -25,7 +25,7 @@ This project analyzes historical automobile sales data to understand how economi
 - **Negative correlation** between vehicle price and sales volume during recessions
 - **Unemployment rate** inversely correlates with sales across all vehicle types
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **Python 3.x**
 - **Data Analysis**: Pandas, NumPy
@@ -33,7 +33,7 @@ This project analyzes historical automobile sales data to understand how economi
 - **Interactive Dashboard**: Dash
 - **Data Processing**: CSV data manipulation
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Automobile-Sales-Recession-Analysis/
@@ -50,7 +50,7 @@ Automobile-Sales-Recession-Analysis/
 └── README.md                          # This file
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -90,7 +90,7 @@ python app.py
 ```
 Then open your browser to `http://127.0.0.1:8050`
 
-## 📈 Dashboard Features
+## Dashboard Features
 
 The interactive dashboard provides:
 
@@ -106,7 +106,7 @@ The interactive dashboard provides:
   - Advertising strategy during downturns
   - Unemployment impact on sales
 
-## 📊 Dataset Description
+## Dataset Description
 
 The dataset contains historical automobile sales data enriched with macroeconomic indicators:
 
@@ -122,7 +122,7 @@ The dataset contains historical automobile sales data enriched with macroeconomi
 - **Vehicle_Type**: Type of vehicle (SuperMiniCar, SmallFamilyCar, MediumFamilyCar, ExecutiveCar, Sports)
 - **Competition**: Market competition measure
 
-## 🔍 Analysis Highlights
+## Analysis Highlights
 
 ### 11 Comprehensive Visualizations
 1. Yearly trend in average automobile sales (1980-2023)
@@ -145,7 +145,7 @@ The dataset contains historical automobile sales data enriched with macroeconomi
 - **Business Intelligence**: Translating data into actionable insights
 - **Python Programming**: Data manipulation, visualization, web apps
 
-## 📝 Future Improvements
+## Future Improvements
 
 - [ ] Add predictive modeling (time series forecasting)
 - [ ] Implement machine learning models for sales prediction
@@ -156,13 +156,13 @@ The dataset contains historical automobile sales data enriched with macroeconomi
 - [ ] Add user authentication for dashboard
 - [ ] Implement real-time data updates
 
-## 👤 Author
+## Author
 
 **Ali Nazir**
 - GitHub: [@alinazir105](https://github.com/alinazir105)
 
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Dataset provided for educational purposes
 - Economic recession data based on historical records
