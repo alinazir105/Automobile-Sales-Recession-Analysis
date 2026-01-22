@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: automobile-sales-dashboard
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn dashboard.app:server
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+

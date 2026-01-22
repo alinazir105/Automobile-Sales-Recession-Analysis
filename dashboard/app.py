@@ -5,14 +5,26 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import plotly.graph_objs as go
 import plotly.express as px
+import os
 
 # Load the data using pandas
-data = pd.read_csv('../data/automobile_sales.csv')
+# Handle both local and deployed paths
+if os.path.exists('../data/automobile_sales.csv'):
+    data_path = '../data/automobile_sales.csv'
+elif os.path.exists('data/automobile_sales.csv'):
+    data_path = 'data/automobile_sales.csv'
+else:
+    data_path = 'automobile_sales.csv'
+
+data = pd.read_csv(data_path)
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
 
 app.title = "Automobile Sales Statistics Dashboard"
+
+# Server for deployment
+server = app.server
 
 #---------------------------------------------------------------------------------
 # Create the dropdown menu options
@@ -189,7 +201,7 @@ def update_output_container(selected_statistics, input_year):
         ])
     
     return None
+
 # Run the Dash app
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run_server(debug=True, host='0.0.0.0', port=8050)
