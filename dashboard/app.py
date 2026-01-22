@@ -27,7 +27,7 @@ year_list = [i for i in range(1980, 2024)]
 app.layout = html.Div(children=[
     # 1. Professional Header Section
     html.Div([
-        html.H1("Automobile Sales Statisitics Dashboard", 
+        html.H1("Automobile Sales Statistics Dashboard", 
                 style={'textAlign': 'center', 'color': '#2c3e50', 'font-size': 32, 'font-family': 'Arial, sans-serif', 'padding-top': '20px'}),
         html.P("Analyzing historical sales data across recessionary and stable economic cycles.",
                style={'textAlign': 'center', 'color': '#7f8c8d', 'font-size': 18, 'margin-bottom': '30px'})
