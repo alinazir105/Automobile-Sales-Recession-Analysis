@@ -2,6 +2,12 @@
 
 A comprehensive data analysis project examining the impact of economic recessions on automobile sales across different vehicle categories from 1980-2023.
 
+## Live Demo
+
+**[View Live Dashboard](https://automobile-sales-recession-analysis.onrender.com)**
+
+> **Note**: First load may take 30-60 seconds on free tier (cold start)
+
 ## Project Overview
 
 This project analyzes historical automobile sales data to understand how economic recessions affect consumer purchasing behavior in the automotive industry. The analysis includes interactive visualizations, statistical insights, and a web-based dashboard for exploring trends.
@@ -150,7 +156,6 @@ The dataset contains historical automobile sales data enriched with macroeconomi
 - [ ] Add predictive modeling (time series forecasting)
 - [ ] Implement machine learning models for sales prediction
 - [ ] Add correlation analysis and statistical tests
-- [ ] Deploy dashboard to cloud platform
 - [ ] Add data export functionality
 - [ ] Include more advanced visualizations (heatmaps, correlation matrices)
 - [ ] Add user authentication for dashboard
