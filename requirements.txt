@@ -1,8 +1,8 @@
-dash==2.14.2
-pandas==2.1.4
-plotly==5.18.0
-numpy==1.26.2
-matplotlib==3.8.2
-seaborn==0.13.0
-gunicorn==21.2.0
+dash
+pandas
+plotly
+numpy
+matplotlib
+seaborn
+gunicorn
 
